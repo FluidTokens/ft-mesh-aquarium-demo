@@ -1,7 +1,6 @@
-
 # Mesh Multisig — Integration
 
-This brief guide explains how **Mesh Multisig** was integrated into a DApp, using **FluidTokens’ Aquarium** platform as a case study.
+This brief guide explains how **Mesh Multisig** was integrated into a DApp, using **FluidTokens' Aquarium** platform as a case study.
 
 ## 📌 Introduction
 
@@ -11,13 +10,13 @@ The result is a clean, scalable, and fast integration.
 
 ---
 
-## 📚 Library
+## 🔧 Implementation
 
-To simplify interaction with multisig wallets, a small library was built for **React** applications.
+To integrate multisig functionality into the React application, custom utility classes and a React context were implemented directly in the project.
 
-To expose the entire React application to multisig functionalities:
+### 1️⃣ Create the `MeshMultisigWallet` utility class
 
-### 1️⃣ Instantiate the `MeshMultisigWallet` class
+First, instantiate the `MeshMultisigWallet` class in your core utilities:
 
 ```typescript
 const meshWallet = new MeshMultisigWallet(
@@ -28,7 +27,11 @@ const meshWallet = new MeshMultisigWallet(
 );
 ```
 
-### 2️⃣ Wrap the entire app with the corresponding Provider
+### 2️⃣ Create a React Context
+
+A React Context (`MeshMultisigWalletContext`) was implemented to manage the multisig wallet state throughout the application, with a custom hook (`useMeshMultisigWallet`) to access the context values.
+
+### 3️⃣ Wrap the app with the Provider
 
 ```typescript
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -44,7 +47,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
 ## ⚙️ Usage in Aquarium
 
-Now, throughout the React application, you can use a hook that exposes some utility values and a `wallet` object to:
+Now, throughout the React application, you can use the custom hook that exposes utility values and a `wallet` object to:
 - Interact with the Mesh Multisig APIs (including the authentication flow)
 - Connect with your browser wallet
 - Use utility functions like `getMultisigWalletAddress`
